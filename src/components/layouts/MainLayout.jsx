@@ -1,28 +1,59 @@
+import { useState } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import './MainLayout.css';
 
 const MainLayout = () => {
     const { logoutUser, user } = useAuth();
+    const [sidebarOpen, setSidebarOpen] = useState(true);
+
+    const toggleSidebar = () => {
+        setSidebarOpen(!sidebarOpen);
+    };
 
     return (
-        <div style={{ display: 'flex', minHeight: '100vh' }}>
-            <aside style={{ width: '250px', background: '#343a40', color: 'white', padding: '20px' }}>
-                <h2>Campus360</h2>
-                <div style={{ marginBottom: '20px', fontSize: '0.9em', color: '#aaa' }}>
-                    Hola, {user?.name || 'Usuario'}
-                </div>
-                <nav style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    <Link to="/reservas" style={{ color: 'white', textDecoration: 'none' }}>📅 Reservas</Link>
-                    <Link to="/incidencias" style={{ color: 'white', textDecoration: 'none' }}>⚠️ Incidencias</Link>
-                    <hr style={{ borderColor: '#555', width: '100%' }} />
-                    <button onClick={logoutUser} style={{ background: 'transparent', border: 'none', color: '#ff6b6b', textAlign: 'left', cursor: 'pointer' }}>
-                        Cerrar Sesión
+        <div className="main-layout">
+            {/* Navbar superior */}
+            <nav className="navbar">
+                <div className="navbar-left">
+                    <button className="hamburger-btn" onClick={toggleSidebar}>
+                        <span className="hamburger-line"></span>
+                        <span className="hamburger-line"></span>
+                        <span className="hamburger-line"></span>
                     </button>
-                </nav>
-            </aside>
-            <main style={{ flex: 1, padding: '20px', background: '#f8f9fa' }}>
-                <Outlet />
-            </main>
+                    <h1 className="navbar-title">Campus360</h1>
+                </div>
+                <div className="navbar-right">
+                    <span className="user-welcome">Bienvenido, {user?.name || 'Usuario'}</span>
+                    <div className="user-avatar">{(user?.name || 'U')[0].toUpperCase()}</div>
+                </div>
+            </nav>
+
+            <div className="content-wrapper">
+                {/* Sidebar colapsable */}
+                <aside className={`sidebar ${sidebarOpen ? 'open' : 'closed'}`}>
+                    <nav className="sidebar-nav">
+                        <Link to="/reservas" className="nav-link">
+                            <span className="nav-icon">📅</span>
+                            {sidebarOpen && <span>Reservas</span>}
+                        </Link>
+                        <Link to="/incidencias" className="nav-link">
+                            <span className="nav-icon">⚠️</span>
+                            {sidebarOpen && <span>Incidencias</span>}
+                        </Link>
+                        <div className="nav-divider"></div>
+                        <button onClick={logoutUser} className="nav-link logout-btn">
+                            <span className="nav-icon">🚪</span>
+                            {sidebarOpen && <span>Cerrar Sesión</span>}
+                        </button>
+                    </nav>
+                </aside>
+
+                {/* Contenido principal */}
+                <main className="main-content">
+                    <Outlet />
+                </main>
+            </div>
         </div>
     );
 };
