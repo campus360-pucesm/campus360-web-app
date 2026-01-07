@@ -20,6 +20,7 @@ const DisponibilidadPage = () => {
     const [showModal, setShowModal] = useState(false);
     const [disponibilidad, setDisponibilidad] = useState(null);
     const [loadingDisponibilidad, setLoadingDisponibilidad] = useState(false);
+    const [horarioSeleccionado, setHorarioSeleccionado] = useState(null);
     
     // Form de reserva
     const [formData, setFormData] = useState({
@@ -93,9 +94,21 @@ const DisponibilidadPage = () => {
 
     const handleFechaChange = (date) => {
         setFormData(prev => ({ ...prev, fecha: date }));
+        setHorarioSeleccionado(null); // Reset selección al cambiar fecha
         if (recursoSeleccionado) {
             cargarDisponibilidad(recursoSeleccionado.id, date);
         }
+    };
+
+    const handleSeleccionarHorario = (horario) => {
+        console.log('Horario seleccionado:', horario);
+        setHorarioSeleccionado(horario);
+        setFormData(prev => ({
+            ...prev,
+            hora_inicio: horario.inicio,
+            hora_fin: horario.fin
+        }));
+        console.log('Formulario actualizado con:', { hora_inicio: horario.inicio, hora_fin: horario.fin });
     };
 
     const esHorarioDisponible = (horaInicio, horaFin) => {
@@ -327,12 +340,21 @@ const DisponibilidadPage = () => {
                                                     
                                                     {disponibilidad.horarios_disponibles && disponibilidad.horarios_disponibles.length > 0 && (
                                                         <div className="horarios-disponibles">
-                                                            {disponibilidad.horarios_disponibles.map((horario, idx) => (
-                                                                <div key={idx} className="horario-slot disponible">
-                                                                    {horario.inicio} - {horario.fin}
-                                                                </div>
-                                                            ))}
-                                                        </div>
+                                            <p className="horarios-label">Haz click para seleccionar:</p>
+                                                {disponibilidad.horarios_disponibles.map((horario, idx) => (
+                                                    <div 
+                                                        key={idx} 
+                                                        className={`horario-slot disponible ${
+                                                            horarioSeleccionado?.inicio === horario.inicio && 
+                                                            horarioSeleccionado?.fin === horario.fin 
+                                                            ? 'seleccionado' : ''
+                                                        }`}
+                                                        onClick={() => handleSeleccionarHorario(horario)}
+                                                    >
+                                                        {horario.inicio} - {horario.fin}
+                                                    </div>
+                                                ))}
+                                        </div>
                                                     )}
                                                     
                                                     {disponibilidad.horarios_ocupados && disponibilidad.horarios_ocupados.length > 0 && (
@@ -367,6 +389,7 @@ const DisponibilidadPage = () => {
                                                 onChange={handleInputChange}
                                                 placeholder="hh:mm"
                                                 required
+                                                disabled={horarioSeleccionado !== null}
                                             />
                                         </div>
                                         <div className="form-group-fullscreen">
@@ -378,6 +401,7 @@ const DisponibilidadPage = () => {
                                                 onChange={handleInputChange}
                                                 placeholder="hh:mm"
                                                 required
+                                                disabled={horarioSeleccionado !== null}
                                             />
                                         </div>
                                     </div>

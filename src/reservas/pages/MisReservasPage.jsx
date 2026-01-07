@@ -38,7 +38,7 @@ const MisReservasPage = () => {
         }
 
         try {
-            await cancelarReserva(reservaId, 'Cancelado por el usuario');
+            await cancelarReserva(reservaId, user.id, 'Cancelado por el usuario');
             alert('Reserva cancelada exitosamente');
             cargarReservas(); // Recargar la lista
         } catch (error) {

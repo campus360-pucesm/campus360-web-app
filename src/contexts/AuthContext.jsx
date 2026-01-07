@@ -16,6 +16,14 @@ export const AuthProvider = ({ children }) => {
             } catch (e) {
                 console.error("Error parsing user data", e);
             }
+        } else {
+            // TEMPORAL: Usuario de prueba para desarrollo sin login
+            const tempUser = {
+                id: "0d16047f-b063-46f2-b46e-867c51fa14ae",
+                nombre: "Luis",
+                email: "luis@gmail.com"
+            };
+            setUser(tempUser);
         }
         setLoading(false);
     }, []);

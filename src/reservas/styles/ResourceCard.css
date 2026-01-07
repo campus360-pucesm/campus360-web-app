@@ -150,3 +150,100 @@
 .btn-ver-disponibilidad:active {
     transform: translateY(0);
 }
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* Tablets (1024px y menos) */
+@media (max-width: 1024px) {
+    .resource-card {
+        min-height: 260px;
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+
+    .resource-icon {
+        font-size: 3rem;
+    }
+
+    .resource-title {
+        font-size: 1.15rem;
+    }
+
+    .resource-image {
+        height: 120px;
+    }
+}
+
+/* Tablets pequeñas y móviles horizontal (768px y menos) */
+@media (max-width: 768px) {
+    .resource-card {
+        min-height: 240px;
+        padding: var(--spacing-md);
+    }
+
+    .resource-icon {
+        font-size: 2.75rem;
+    }
+
+    .resource-title {
+        font-size: 1.1rem;
+    }
+
+    .resource-cantidad,
+    .resource-capacidad {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+
+    .resource-image {
+        height: 110px;
+        margin-top: var(--spacing-sm);
+    }
+
+    .btn-ver-disponibilidad {
+        padding: 0.65rem var(--spacing-lg);
+        font-size: 0.9rem;
+        margin-top: var(--spacing-md);
+    }
+}
+
+/* Móviles vertical (480px y menos) */
+@media (max-width: 480px) {
+    .resource-card {
+        min-height: 220px;
+        padding: var(--spacing-sm) var(--spacing-xs);
+    }
+
+    .resource-icon {
+        font-size: 2.5rem;
+    }
+
+    .resource-title {
+        font-size: 1rem;
+    }
+
+    .resource-info {
+        gap: 6px;
+        margin-top: 8px;
+    }
+
+    .resource-cantidad,
+    .resource-capacidad {
+        font-size: 0.75rem;
+        padding: 5px 10px;
+    }
+
+    .resource-image {
+        height: 100px;
+        margin-top: 8px;
+    }
+
+    .btn-ver-disponibilidad {
+        padding: 0.6rem var(--spacing-md);
+        font-size: 0.85rem;
+        margin-top: var(--spacing-sm);
+    }
+
+    .resource-card:hover {
+        transform: translateY(-4px) scale(1.01);
+    }
+}
