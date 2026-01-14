@@ -1,9 +1,10 @@
 import axios from 'axios';
 
-// URL del API Gateway o backend directo
-// Para desarrollo: usar directamente el puerto del backend de reservas (8001)
-// Para producción: usar el API Gateway (8000)
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8001';
+// URL del API Gateway
+// Para desarrollo: API Gateway en puerto 8001
+// Para producción: usar variable de entorno
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8001/api/v1';
+
 
 const gateway = axios.create({
     baseURL: API_URL,
