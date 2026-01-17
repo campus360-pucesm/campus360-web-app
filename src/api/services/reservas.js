@@ -3,7 +3,7 @@ import gateway from '../gateway';
 /**
  * Servicio API del Módulo de Reservas
  * 
- * Conecta con el backend FastAPI en puerto 8001
+ * Conecta con el API Gateway en puerto 8000
  * Backend: campus360-reservas/app/
  * 
  * Contiene todos los endpoints relacionados con el sistema de reservas:
@@ -33,10 +33,10 @@ export const getRecursos = async (tipo = null, estado = 'disponible', page = 1, 
         page: page.toString(),
         page_size: pageSize.toString(),
     });
-    
+
     if (tipo) params.append('tipo', tipo);
     if (estado) params.append('estado', estado);
-    
+
     const response = await gateway.get(`/recursos?${params.toString()}`);
     return response.data;
 };
@@ -58,7 +58,7 @@ export const getTiposRecursos = async () => {
  */
 export const getDisponibilidadRecurso = async (recursoId, fecha) => {
     const params = new URLSearchParams({ fecha });
-    
+
     const response = await gateway.get(`/recursos/${recursoId}/disponibilidad?${params.toString()}`);
     return response.data;
 };
@@ -92,14 +92,14 @@ export const getRecursoById = async (recursoId) => {
  */
 export const listarReservas = async (filters = {}) => {
     const params = new URLSearchParams();
-    
+
     if (filters.usuario_id) params.append('usuario_id', filters.usuario_id);
     if (filters.fecha) params.append('fecha', filters.fecha);
     if (filters.tipo_recurso) params.append('tipo_recurso', filters.tipo_recurso);
     if (filters.estado) params.append('estado', filters.estado);
     if (filters.page) params.append('page', filters.page.toString());
     if (filters.page_size) params.append('page_size', filters.page_size.toString());
-    
+
     const response = await gateway.get(`/reservas/?${params.toString()}`);
     return response.data;
 };
@@ -124,9 +124,9 @@ export const getReservas = async (usuarioId, estado = null, page = 1, pageSize =
         page: page.toString(),
         page_size: pageSize.toString(),
     });
-    
+
     if (estado) params.append('estado', estado);
-    
+
     const response = await gateway.get(`/reservas/usuario/${usuarioId}?${params.toString()}`);
     return response.data;
 };
@@ -192,7 +192,7 @@ export const getReservaById = async (reservaId) => {
 export const getReservasPorFecha = async (fecha, tipoRecurso = null) => {
     const params = new URLSearchParams();
     if (tipoRecurso) params.append('tipo_recurso', tipoRecurso);
-    
+
     const url = `/reservas/fecha/${fecha}${params.toString() ? '?' + params.toString() : ''}`;
     const response = await gateway.get(url);
     return response.data;
@@ -215,11 +215,11 @@ export const cancelarReserva = async (reservaId, usuarioId, motivo = '') => {
     const params = new URLSearchParams({
         usuario_id: usuarioId
     });
-    
+
     if (motivo) {
         params.append('motivo', motivo);
     }
-    
+
     const response = await gateway.delete(`/reservas/${reservaId}?${params.toString()}`);
     return response.data;
 };
