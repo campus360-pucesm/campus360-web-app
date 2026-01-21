@@ -157,7 +157,7 @@ export default function Dashboard() {
                     {user.role === "admin" && (
                         <Button
                             variant="secondary"
-                            onClick={() => navigate("/auth/admin")}
+                            onClick={() => navigate("/admin")}
                         >
                             Panel Admin
                         </Button>

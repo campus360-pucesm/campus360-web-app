@@ -28,8 +28,8 @@ export const AuthProvider = ({ children }) => {
             const response = await authService.login(email, password);
             const token = response.access_token;
             
-            // Store token
-            localStorage.setItem('token', token);
+            // Store token (trim to remove any whitespace)
+            localStorage.setItem('token', token.trim());
             
             // Get user profile
             const userProfile = await authService.getMyProfile();

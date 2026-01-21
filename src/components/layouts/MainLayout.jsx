@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import { Home, Calendar, CheckSquare, AlertTriangle, CreditCard, Settings, LogOut, GraduationCap } from 'lucide-react';
 import './MainLayout.css';
 
 /**
@@ -22,21 +23,21 @@ const MainLayout = () => {
         {
             section: 'Principal',
             items: [
-                { path: '/', icon: '🏠', label: 'Inicio', exact: true }
+                { path: '/', icon: Home, label: 'Inicio', exact: true }
             ]
         },
         {
             section: 'Servicios',
             items: [
-                { path: '/reservas', icon: '📅', label: 'Reservas' },
-                { path: '/asistencia', icon: '✅', label: 'Asistencia' },
-                { path: '/incidencias', icon: '⚠️', label: 'Incidencias' }
+                { path: '/reservas', icon: Calendar, label: 'Reservas' },
+                { path: '/asistencia', icon: CheckSquare, label: 'Asistencia' },
+                { path: '/incidencias', icon: AlertTriangle, label: 'Incidencias' }
             ]
         },
         {
             section: 'Mi Cuenta',
             items: [
-                { path: '/auth/dashboard', icon: '🪪', label: 'Mi Credencial' }
+                { path: '/credencial', icon: CreditCard, label: 'Mi Credencial' }
             ]
         }
     ];
@@ -46,7 +47,7 @@ const MainLayout = () => {
         menuItems.push({
             section: 'Administración',
             items: [
-                { path: '/auth/admin', icon: '⚙️', label: 'Panel Admin' }
+                { path: '/admin', icon: Settings, label: 'Panel Admin' }
             ]
         });
     }
@@ -57,14 +58,26 @@ const MainLayout = () => {
             <aside className="sidebar">
                 <div className="sidebar-header">
                     <div className="logo">
-                        <span className="logo-icon">🎓</span>
+                        <GraduationCap className="logo-icon" size={28} />
                         {!sidebarCollapsed && <span className="logo-text">Campus360</span>}
                     </div>
                     <button 
                         className="toggle-btn"
-                        onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+                        onClick={() => setSidebarCollapsed(prev => !prev)}
+                        aria-label={sidebarCollapsed ? 'Expandir barra lateral' : 'Colapsar barra lateral'}
+                        title={sidebarCollapsed ? 'Expandir' : 'Colapsar'}
                     >
-                        {sidebarCollapsed ? '→' : '←'}
+                        <svg
+                            className={`toggle-icon ${sidebarCollapsed ? '' : 'rotated'}`}
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true"
+                        >
+                            <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
                     </button>
                 </div>
 
@@ -74,29 +87,32 @@ const MainLayout = () => {
                             {!sidebarCollapsed && (
                                 <span className="nav-section-title">{section.section}</span>
                             )}
-                            {section.items.map((item) => (
-                                <NavLink
-                                    key={item.path}
-                                    to={item.path}
-                                    end={item.exact}
-                                    className={({ isActive }) => 
-                                        `nav-item ${isActive ? 'active' : ''}`
-                                    }
-                                    title={sidebarCollapsed ? item.label : ''}
-                                >
-                                    <span className="nav-icon">{item.icon}</span>
-                                    {!sidebarCollapsed && (
-                                        <span className="nav-label">{item.label}</span>
-                                    )}
-                                </NavLink>
-                            ))}
+                            {section.items.map((item) => {
+                                const IconComponent = item.icon;
+                                return (
+                                    <NavLink
+                                        key={item.path}
+                                        to={item.path}
+                                        end={item.exact}
+                                        className={({ isActive }) => 
+                                            `nav-item ${isActive ? 'active' : ''}`
+                                        }
+                                        title={sidebarCollapsed ? item.label : ''}
+                                    >
+                                        <IconComponent className="nav-icon" size={20} />
+                                        {!sidebarCollapsed && (
+                                            <span className="nav-label">{item.label}</span>
+                                        )}
+                                    </NavLink>
+                                );
+                            })}
                         </div>
                     ))}
                 </nav>
 
                 <div className="sidebar-footer">
                     <button className="logout-btn" onClick={handleLogout}>
-                        <span className="nav-icon">🚪</span>
+                        <LogOut className="nav-icon" size={20} />
                         {!sidebarCollapsed && <span>Cerrar Sesión</span>}
                     </button>
                 </div>

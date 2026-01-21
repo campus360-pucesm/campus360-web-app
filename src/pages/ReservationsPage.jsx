@@ -25,6 +25,7 @@ const ReservationsPage = () => {
                 // Obtener tipos de recursos desde el backend
                 const response = await getTiposRecursos();
                 
+                console.log("Response from getTiposRecursos:", response);
                 if (response.success && response.tipos_disponibles) {
                     // Mapear los tipos del backend al formato del frontend
                     const tipos = Object.entries(response.tipos_disponibles).map(([tipo, info]) => {
@@ -87,7 +88,7 @@ const ReservationsPage = () => {
                     <h1 className="page-title">Recursos del Campus</h1>
                     {user && (
                         <p className="welcome-text">
-                            Bienvenido, {user.nombre || user.email || 'Usuario'}
+                            Bienvenido, {user.full_name || user.nombre || user.email || 'Usuario'}
                         </p>
                     )}
                 </div>

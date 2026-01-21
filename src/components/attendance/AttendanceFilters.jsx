@@ -1,14 +1,15 @@
 import React from 'react';
 import { FileDown } from 'lucide-react';
+import './attendance.css';
 
 const AttendanceFilters = ({ locationFilter, setLocationFilter, uniqueLocations, generatePDF }) => {
     return (
-        <div className="flex flex-col md:flex-row items-center gap-4">
-            <div className="flex items-center gap-4 w-full md:w-auto bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                <label className="font-bold text-gray-700 whitespace-nowrap text-lg">Filtrar por Aula:</label>
-                <div className="relative flex-1">
+        <div className="attendance-filters">
+            <div className="filters-row">
+                <div className="filter-group">
+                    <label>Filtrar por Aula:</label>
                     <select
-                        className="w-full p-3 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none bg-gray-50 text-base"
+                        className="filter-select"
                         value={locationFilter}
                         onChange={(e) => setLocationFilter(e.target.value)}
                     >
@@ -17,11 +18,9 @@ const AttendanceFilters = ({ locationFilter, setLocationFilter, uniqueLocations,
                         ))}
                     </select>
                 </div>
-            </div>
 
-            <div className="flex gap-4">
                 <button
-                    className="flex items-center gap-2 px-6 py-3 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 text-gray-700 transition font-bold text-base shadow-sm"
+                    className="btn-generate-pdf"
                     onClick={generatePDF}
                 >
                     <FileDown size={20} /> Descargar PDF

@@ -34,14 +34,14 @@
     left: 0;
     width: 120px;
     height: 2px;
-    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    background: linear-gradient(90deg, var(--primary), var(--accent-color));
     border-radius: var(--radius-full);
 }
 
 .btn-back {
     background: none;
     border: none;
-    color: var(--primary-color);
+    color: var(--primary);
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
@@ -74,7 +74,7 @@
 }
 
 .btn-nueva-reserva {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
     color: var(--text-white);
     border: none;
     border-radius: var(--radius-full);
@@ -124,22 +124,22 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
     opacity: 0;
     transition: opacity var(--transition-base);
     z-index: -1;
 }
 
 .filtro-btn:hover:not(.active) {
-    border-color: var(--primary-color);
-    color: var(--primary-color);
+    border-color: var(--primary);
+    color: var(--primary);
     transform: translateY(-2px);
     box-shadow: var(--shadow-sm);
 }
 
 .filtro-btn.active {
     color: var(--text-white);
-    border-color: var(--primary-color);
+    border-color: var(--primary);
     box-shadow: var(--shadow-sm);
 }
 
@@ -174,7 +174,7 @@
     top: 0;
     bottom: 0;
     width: 4px;
-    background: linear-gradient(180deg, var(--primary-color), var(--accent-color));
+    background: linear-gradient(180deg, var(--primary), var(--accent-color));
     opacity: 0;
     transition: opacity var(--transition-base);
 }
@@ -295,7 +295,7 @@
 }
 
 .btn-ver-qr {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
     color: var(--text-white);
 }
 
@@ -347,7 +347,7 @@
 }
 
 .btn-primera-reserva {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
     color: var(--text-white);
     border: none;
     border-radius: var(--radius-full);

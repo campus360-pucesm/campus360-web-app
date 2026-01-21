@@ -28,7 +28,7 @@ const HomePage = () => {
             icono: '🪪',
             color: '#f3e5f5',
             gradiente: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-            ruta: '/auth/dashboard',
+            ruta: '/credencial',
             disponible: true
         },
         {
@@ -62,7 +62,7 @@ const HomePage = () => {
             icono: '⚙️',
             color: '#ffebee',
             gradiente: 'linear-gradient(135deg, #eb3349 0%, #f45c43 100%)',
-            ruta: '/auth/admin',
+            ruta: '/admin',
             disponible: true
         });
     }
@@ -146,7 +146,7 @@ const HomePage = () => {
                     </button>
                     <button 
                         className="quick-btn"
-                        onClick={() => navigate('/auth/dashboard')}
+                        onClick={() => navigate('/credencial')}
                     >
                         <span>🪪</span> Mi Credencial
                     </button>

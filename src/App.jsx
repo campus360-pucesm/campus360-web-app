@@ -43,21 +43,6 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/auth/no-access" element={<NotAuthorized />} />
 
-                {/* ====== Rutas del Módulo Auth (sin MainLayout) ====== */}
-                {/* Dashboard de Credencial/QR */}
-                <Route path="/auth/dashboard" element={
-                    <PrivateRoute>
-                        <Dashboard />
-                    </PrivateRoute>
-                } />
-                
-                {/* Panel de Administración */}
-                <Route path="/auth/admin" element={
-                    <AdminRoute>
-                        <AdminPanel />
-                    </AdminRoute>
-                } />
-
                 {/* ====== Rutas Principales con MainLayout ====== */}
                 <Route path="/" element={
                     <PrivateRoute>
@@ -66,6 +51,16 @@ function App() {
                 }>
                     {/* Dashboard Principal - página de inicio después del login */}
                     <Route index element={<HomePage />} />
+                    
+                    {/* ====== Mi Credencial ====== */}
+                    <Route path="credencial" element={<Dashboard />} />
+                    
+                    {/* ====== Panel de Administración ====== */}
+                    <Route path="admin" element={
+                        <AdminRoute>
+                            <AdminPanel />
+                        </AdminRoute>
+                    } />
                     
                     {/* ====== Módulo de Reservas ====== */}
                     <Route path="reservas" element={<ReservationsPage />} />

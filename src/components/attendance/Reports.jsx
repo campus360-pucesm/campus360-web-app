@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getReports } from '../../api/services/attendanceService';
+import { getReports } from '../../api/services/Attendanceservice';
 import { Loader2 } from 'lucide-react';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
@@ -32,10 +32,13 @@ const Reports = () => {
     const fetchReports = async () => {
         try {
             setLoading(true);
-            const data = await getReports();
-            setAllLogs(data || []);
+            const response = await getReports();
+            // Handle different response structures
+                console.log("Response from getReports:", response);
+            const data = response?.data || response || [];
+            setAllLogs(Array.isArray(data) ? data : []);
         } catch (err) {
-            console.error(err);
+            console.error('Error fetching reports:', err);
             setAllLogs([]);
         } finally {
             setLoading(false);

@@ -1,0 +1,269 @@
+/* ================================================
+   📊 MÓDULO DE ASISTENCIA - Campus360
+   Basado en el sistema de diseño unificado
+   ================================================ */
+
+/* ========== Grid de Estadísticas ========== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.stat-card {
+    background: var(--surface);
+    padding: var(--spacing-2xl);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--primary);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: all var(--transition-base);
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+}
+
+.stat-card.stat-primary {
+    border-left-color: var(--primary);
+}
+
+.stat-card.stat-success {
+    border-left-color: var(--success);
+}
+
+.stat-card.stat-info {
+    border-left-color: var(--info);
+}
+
+.stat-value {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1;
+}
+
+.stat-card.stat-success .stat-value {
+    color: var(--success);
+}
+
+.stat-card.stat-info .stat-value {
+    color: var(--primary);
+}
+
+.stat-label {
+    color: var(--text-secondary);
+    font-weight: 500;
+    margin-top: var(--spacing-md);
+    font-size: 1.125rem;
+}
+
+/* ========== Filtros de Asistencia ========== */
+.attendance-filters {
+    background: var(--surface);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.filters-row {
+    display: flex;
+    gap: var(--spacing-lg);
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.filter-select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 15px;
+    transition: var(--transition);
+    background: var(--surface);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+}
+
+.filter-select:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+.btn-generate-pdf {
+    padding: 12px 24px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    white-space: nowrap;
+}
+
+.btn-generate-pdf:hover {
+    background: var(--primary-hover);
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+}
+
+/* ========== Tabla de Asistencia ========== */
+.attendance-table-container {
+    background: var(--surface);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.attendance-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.attendance-table thead {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    color: white;
+}
+
+.attendance-table th {
+    padding: var(--spacing-lg);
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.attendance-table tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background-color var(--transition-fast);
+}
+
+.attendance-table tbody tr:hover {
+    background-color: var(--bg-secondary);
+}
+
+.attendance-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.attendance-table td {
+    padding: var(--spacing-lg);
+    color: var(--text-primary);
+}
+
+.student-name {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.location-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    border-radius: var(--radius-full);
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: 6px 12px;
+    border-radius: var(--radius-full);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.status-badge.on-time {
+    background: var(--success-light);
+    color: var(--success);
+}
+
+.status-badge.late {
+    background: var(--warning-light);
+    color: var(--warning);
+}
+
+.status-badge.absent {
+    background: var(--error-light);
+    color: var(--error);
+}
+
+.status-icon {
+    font-size: 1rem;
+}
+
+.empty-state {
+    text-align: center;
+    padding: var(--spacing-2xl);
+    color: var(--text-secondary);
+}
+
+.empty-state-icon {
+    font-size: 4rem;
+    opacity: 0.3;
+    margin-bottom: var(--spacing-lg);
+}
+
+.empty-state-text {
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+/* ========== Responsive ========== */
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filters-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-group {
+        min-width: 100%;
+    }
+
+    .btn-generate-pdf {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .attendance-table-container {
+        overflow-x: auto;
+    }
+
+    .attendance-table {
+        min-width: 600px;
+    }
+}

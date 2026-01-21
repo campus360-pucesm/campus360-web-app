@@ -9,6 +9,7 @@
         opacity: 0;
         transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -23,7 +24,7 @@
 .btn-back {
     background: none;
     border: none;
-    color: var(--primary-color);
+    color: var(--primary);
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
@@ -36,7 +37,7 @@
 }
 
 .btn-back:hover {
-    color: var(--primary-dark);
+    color: var(--primary-hover);
     transform: translateX(-4px);
 }
 
@@ -82,7 +83,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    background: var(--primary);
     opacity: 0;
     transition: opacity var(--transition-base);
 }
@@ -175,7 +176,7 @@
 .btn-reservar-grid {
     width: 100%;
     padding: var(--spacing-md);
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
     color: var(--text-white);
     border: none;
     border-radius: var(--radius-lg);
@@ -230,7 +231,7 @@
     transform: translateX(-50%);
     width: 0;
     height: 3px;
-    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    background: linear-gradient(90deg, var(--primary), var(--accent-color));
     transition: width var(--transition-base);
     border-radius: var(--radius-full);
 }
@@ -247,7 +248,7 @@
 
 .tab:hover:not(.active) {
     background: rgba(102, 126, 234, 0.1);
-    color: var(--primary-color);
+    color: var(--primary);
 }
 
 .recursos-list {
@@ -271,7 +272,7 @@
 }
 
 .recursos-list::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-color);
+    background: var(--primary);
 }
 
 /* Cards de recursos modernos */
@@ -294,7 +295,7 @@
     left: 0;
     width: 4px;
     height: 0;
-    background: linear-gradient(180deg, var(--primary-color), var(--accent-color));
+    background: linear-gradient(180deg, var(--primary), var(--accent-color));
     transition: height var(--transition-base);
 }
 
@@ -393,7 +394,7 @@
 
 .btn-reservar {
     padding: var(--spacing-sm) var(--spacing-lg);
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
     color: var(--text-white);
     border: none;
     border-radius: var(--radius-full);
@@ -594,7 +595,7 @@
 .btn-crear-reserva-principal {
     width: 100%;
     padding: var(--spacing-lg);
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
     color: var(--text-white);
     border: none;
     border-radius: var(--radius-lg);
@@ -692,6 +693,7 @@
         opacity: 0;
         transform: translateY(30px) scale(0.95);
     }
+
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -710,7 +712,7 @@
 .btn-back-modal {
     background: none;
     border: none;
-    color: var(--primary-color);
+    color: var(--primary);
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
@@ -722,7 +724,7 @@
 }
 
 .btn-back-modal:hover {
-    color: var(--primary-dark);
+    color: var(--primary-hover);
     transform: translateX(-4px);
 }
 
@@ -885,7 +887,7 @@
 .form-group-fullscreen input:focus,
 .form-group-fullscreen textarea:focus {
     outline: none;
-    border-color: var(--primary-color);
+    border-color: var(--primary);
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
     background: var(--bg-primary);
 }
@@ -925,7 +927,7 @@
 .btn-confirmar-reserva {
     width: 100%;
     padding: var(--spacing-lg);
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
     color: var(--text-white);
     border: none;
     border-radius: var(--radius-lg);
@@ -955,9 +957,12 @@
 }
 
 @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 1;
     }
+
     50% {
         opacity: 0.5;
     }
@@ -969,16 +974,16 @@
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
         gap: var(--spacing-lg);
     }
-    
+
     .modal-body-fullscreen {
         grid-template-columns: 1fr;
         gap: var(--spacing-xl);
     }
-    
+
     .columna-info-recurso {
         order: 2;
     }
-    
+
     .columna-formulario {
         order: 1;
     }
@@ -988,38 +993,38 @@
     .disponibilidad-page {
         padding: var(--spacing-lg);
     }
-    
+
     .disponibilidad-header h1 {
         font-size: 1.5rem;
     }
-    
+
     .disponibilidad-header .subtitle {
         font-size: 1rem;
     }
-    
+
     .recursos-grid-disponibilidad {
         grid-template-columns: 1fr;
     }
-    
+
     .modal-overlay-fullscreen {
         padding: 0;
     }
-    
+
     .modal-content-fullscreen {
         border-radius: 0;
         max-height: 100vh;
         height: 100vh;
     }
-    
+
     .modal-body-fullscreen {
         padding: var(--spacing-lg);
     }
-    
+
     .form-row-fullscreen {
         grid-template-columns: 1fr;
         gap: var(--spacing-md);
     }
-    
+
     .recurso-placeholder {
         height: 150px;
     }
@@ -1029,23 +1034,23 @@
     .disponibilidad-page {
         padding: var(--spacing-md);
     }
-    
+
     .btn-back {
         font-size: 0.9rem;
     }
-    
+
     .recurso-card-grid {
         padding: var(--spacing-md);
     }
-    
+
     .modal-header-fullscreen {
         padding: var(--spacing-lg);
     }
-    
+
     .modal-header-fullscreen h2 {
         font-size: 1.25rem;
     }
-    
+
     .columna-info-recurso,
     .columna-formulario {
         padding: var(--spacing-md);
@@ -1151,7 +1156,7 @@
 
 .date-picker-input:focus {
     outline: none;
-    border-color: var(--primary-color);
+    border-color: var(--primary);
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
@@ -1165,7 +1170,7 @@
 }
 
 .react-datepicker__header {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
     border-bottom: none;
     border-radius: var(--radius-xl) var(--radius-xl) 0 0;
     padding: var(--spacing-lg);
@@ -1190,7 +1195,7 @@
 }
 
 .react-datepicker__day--selected {
-    background: var(--primary-color);
+    background: var(--primary);
     color: var(--text-white);
     font-weight: 700;
 }
@@ -1307,9 +1312,9 @@
 }
 
 .horario-slot.disponible.seleccionado {
-    background: var(--primary-color);
+    background: var(--primary);
     color: white;
-    border-color: var(--primary-color);
+    border-color: var(--primary);
     font-weight: 700;
 }
 
