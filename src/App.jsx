@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import MainLayout from './components/layouts/MainLayout';
-import IncidentsPage from './pages/IncidentsPage';
 import { useAuth } from './contexts/AuthContext';
 
 // Auth pages
@@ -10,12 +9,17 @@ import AdminPanel from './pages/auth/AdminPanel';
 import NotAuthorized from './pages/auth/NotAuthorized';
 import NotFound from './pages/auth/NotFound';
 
-// Importar Dashboard principal del módulo de reservas (en src/pages)
-import ReservationsPage from './pages/ReservationsPage';
+// Dashboard Principal (NUEVO)
+import HomePage from './pages/HomePage';
 
-// Importar páginas internas del módulo de reservas (en src/reservas/pages)
+// Módulo de Reservas
+import ReservationsPage from './pages/ReservationsPage';
 import DisponibilidadPage from './reservas/pages/DisponibilidadPage';
 import MisReservasPage from './reservas/pages/MisReservasPage';
+
+// Otros módulos
+import IncidentsPage from './pages/IncidentsPage';
+import AttendancePage from './pages/AttendancePage';
 
 // Componente para proteger rutas privadas
 const PrivateRoute = ({ children }) => {
@@ -35,44 +39,50 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                {/* Auth routes - public */}
+                {/* ====== Rutas Públicas ====== */}
                 <Route path="/login" element={<Login />} />
-                
-                {/* Auth routes - protected */}
+                <Route path="/auth/no-access" element={<NotAuthorized />} />
+
+                {/* ====== Rutas del Módulo Auth (sin MainLayout) ====== */}
+                {/* Dashboard de Credencial/QR */}
                 <Route path="/auth/dashboard" element={
                     <PrivateRoute>
                         <Dashboard />
                     </PrivateRoute>
                 } />
                 
+                {/* Panel de Administración */}
                 <Route path="/auth/admin" element={
                     <AdminRoute>
                         <AdminPanel />
                     </AdminRoute>
                 } />
-                
-                <Route path="/auth/no-access" element={<NotAuthorized />} />
-                <Route path="*" element={<NotFound />} />
 
+                {/* ====== Rutas Principales con MainLayout ====== */}
                 <Route path="/" element={
                     <PrivateRoute>
                         <MainLayout />
                     </PrivateRoute>
                 }>
-                    {/* Ruta principal - redirige al dashboard de reservas */}
-                    <Route index element={<Navigate to="/reservas" replace />} />
+                    {/* Dashboard Principal - página de inicio después del login */}
+                    <Route index element={<HomePage />} />
                     
-                    {/* Dashboard principal del módulo de Reservas */}
+                    {/* ====== Módulo de Reservas ====== */}
                     <Route path="reservas" element={<ReservationsPage />} />
-                    
-                    {/* Páginas internas del módulo de Reservas */}
                     <Route path="reservas/disponibilidad/:tipo" element={<DisponibilidadPage />} />
                     <Route path="reservas/mis-reservas" element={<MisReservasPage />} />
                     
-                    {/* Otros módulos */}
+                    {/* ====== Módulo de Asistencia ====== */}
+                    <Route path="asistencia" element={<AttendancePage />} />
+                    
+                    {/* ====== Módulo de Incidencias ====== */}
                     <Route path="incidencias" element={<IncidentsPage />} />
-                    {/* Aquí irán otros módulos: nómina, finanzas, etc... */}
+                    
+                    {/* Aquí irán otros módulos en el futuro */}
                 </Route>
+
+                {/* ====== 404 - Página no encontrada ====== */}
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </BrowserRouter>
     );

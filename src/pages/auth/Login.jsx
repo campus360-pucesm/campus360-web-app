@@ -24,14 +24,7 @@ export default function Login() {
             const result = await login(email, password);
             
             if (result.success) {
-                // Get user from localStorage to check role
-                const userData = JSON.parse(localStorage.getItem('user'));
-                
-                if (userData.role === "admin") {
-                    navigate("/auth/admin");
-                } else {
-                    navigate("/auth/dashboard");
-                }
+                navigate("/");
             } else {
                 setErrorMsg(result.error);
             }
@@ -47,7 +40,7 @@ export default function Login() {
             <div className="card">
                 <div className="app-title">
                     <h1>CAMPUS360</h1>
-                    <p>Autenticación Inteligente</p>
+                    <p>Portal Universitario</p>
                 </div>
 
                 <Alert type="error" message={errorMsg} />
