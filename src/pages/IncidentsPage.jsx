@@ -1,43 +1,99 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import styles from '../styles/Incidencias.module.css';
+import Toast from '../components/common/Toast';
+import CatalogosSection from '../components/incidencias/CatalogosSection';
+import TicketsListSection from '../components/incidencias/TicketsListSection';
+import CreateTicketSection from '../components/incidencias/CreateTicketSection';
+import TicketDetailSection from '../components/incidencias/TicketDetailSection';
+import ActionsSection from '../components/incidencias/ActionsSection';
 
+/**
+ * Página principal del módulo de Incidencias
+ */
 const IncidentsPage = () => {
-    const [incidents, setIncidents] = useState([]);
+    const [activeSection, setActiveSection] = useState('catalogos');
+    const [toast, setToast] = useState({ show: false, message: '', type: 'info' });
+    const [ticketIdToView, setTicketIdToView] = useState(null);
 
-    useEffect(() => {
-        // Mock data
-        setIncidents([
-            { id: 101, asunto: 'Wifi lento en Biblioteca', estado: 'Abierto' },
-            { id: 102, asunto: 'Aire acondicionado Lab 2', estado: 'Cerrado' },
-        ]);
-    }, []);
+    const showToast = (message, type = 'info') => {
+        setToast({ show: true, message, type });
+    };
+
+    const closeToast = () => {
+        setToast({ show: false, message: '', type: 'info' });
+    };
+
+    const handleViewTicket = (ticketId) => {
+        setTicketIdToView(ticketId);
+        setActiveSection('detalle-ticket');
+    };
+
+    const renderSection = () => {
+        switch (activeSection) {
+            case 'catalogos':
+                return <CatalogosSection onShowToast={showToast} />;
+            case 'tickets':
+                return <TicketsListSection onShowToast={showToast} onViewTicket={handleViewTicket} />;
+            case 'crear-ticket':
+                return <CreateTicketSection onShowToast={showToast} />;
+            case 'detalle-ticket':
+                return <TicketDetailSection ticketIdProp={ticketIdToView} onShowToast={showToast} />;
+            case 'acciones':
+                return <ActionsSection onShowToast={showToast} />;
+            default:
+                return <CatalogosSection onShowToast={showToast} />;
+        }
+    };
 
     return (
-        <div>
-            <h1>Gestión de Incidencias</h1>
-            <div className="card">
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                    <thead>
-                        <tr style={{ borderBottom: '2px solid #ddd', textAlign: 'left' }}>
-                            <th>ID</th>
-                            <th>Asunto</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {incidents.map(inc => (
-                            <tr key={inc.id} style={{ borderBottom: '1px solid #eee' }}>
-                                <td style={{ padding: '10px' }}>#{inc.id}</td>
-                                <td style={{ padding: '10px' }}>{inc.asunto}</td>
-                                <td style={{ padding: '10px' }}>{inc.estado}</td>
-                                <td style={{ padding: '10px' }}>
-                                    <button className="btn" style={{ fontSize: '0.8em', padding: '5px 10px' }}>Ver</button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+        <div className={styles.incidenciasPage}>
+            <header className={styles.header}>
+                <h1>🎓 Campus360 - Incidencias</h1>
+            </header>
+
+            <nav className={styles.tabs}>
+                <button
+                    className={`${styles.tab} ${activeSection === 'catalogos' ? styles.active : ''}`}
+                    onClick={() => setActiveSection('catalogos')}
+                >
+                    📋 Catálogos
+                </button>
+                <button
+                    className={`${styles.tab} ${activeSection === 'tickets' ? styles.active : ''}`}
+                    onClick={() => setActiveSection('tickets')}
+                >
+                    🎫 Tickets
+                </button>
+                <button
+                    className={`${styles.tab} ${activeSection === 'crear-ticket' ? styles.active : ''}`}
+                    onClick={() => setActiveSection('crear-ticket')}
+                >
+                    ➕ Crear Ticket
+                </button>
+                <button
+                    className={`${styles.tab} ${activeSection === 'detalle-ticket' ? styles.active : ''}`}
+                    onClick={() => setActiveSection('detalle-ticket')}
+                >
+                    🔍 Detalle Ticket
+                </button>
+                <button
+                    className={`${styles.tab} ${activeSection === 'acciones' ? styles.active : ''}`}
+                    onClick={() => setActiveSection('acciones')}
+                >
+                    ⚡ Acciones
+                </button>
+            </nav>
+
+            <main className={styles.mainContent}>
+                {renderSection()}
+            </main>
+
+            <Toast
+                message={toast.message}
+                type={toast.type}
+                show={toast.show}
+                onClose={closeToast}
+            />
         </div>
     );
 };
