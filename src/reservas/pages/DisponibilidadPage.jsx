@@ -13,7 +13,7 @@ const DisponibilidadPage = () => {
     const { tipo } = useParams();
     const navigate = useNavigate();
     const { user } = useAuth();
-    
+
     const [recursos, setRecursos] = useState([]);
     const [recursoSeleccionado, setRecursoSeleccionado] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -21,7 +21,7 @@ const DisponibilidadPage = () => {
     const [disponibilidad, setDisponibilidad] = useState(null);
     const [loadingDisponibilidad, setLoadingDisponibilidad] = useState(false);
     const [horarioSeleccionado, setHorarioSeleccionado] = useState(null);
-    
+
     // Form de reserva
     const [formData, setFormData] = useState({
         fecha: new Date(),
@@ -81,7 +81,7 @@ const DisponibilidadPage = () => {
             setLoadingDisponibilidad(true);
             const fechaStr = fecha.toISOString().split('T')[0];
             const response = await getDisponibilidadRecurso(recursoId, fechaStr);
-            
+
             if (response.success) {
                 setDisponibilidad(response.data);
             }
@@ -113,14 +113,14 @@ const DisponibilidadPage = () => {
 
     const esHorarioDisponible = (horaInicio, horaFin) => {
         if (!disponibilidad || !disponibilidad.horarios_ocupados) return true;
-        
+
         const inicio = horaInicio.replace(':', '');
         const fin = horaFin.replace(':', '');
-        
+
         for (const ocupado of disponibilidad.horarios_ocupados) {
             const ocupadoInicio = ocupado.inicio.substring(0, 5).replace(':', '');
             const ocupadoFin = ocupado.fin.substring(0, 5).replace(':', '');
-            
+
             // Verificar si hay solapamiento
             if (!(fin <= ocupadoInicio || inicio >= ocupadoFin)) {
                 return false;
@@ -131,7 +131,7 @@ const DisponibilidadPage = () => {
 
     const handleCrearReserva = async (e) => {
         e.preventDefault();
-        
+
         if (!recursoSeleccionado || !user) {
             alert('Debe seleccionar un recurso y estar autenticado');
             return;
@@ -182,10 +182,11 @@ const DisponibilidadPage = () => {
         <div className="disponibilidad-page">
             <div className="disponibilidad-header">
                 <button className="btn-back" onClick={() => navigate('/reservas')}>
-                    ← Volver
+                    ← Volver a recursos
                 </button>
                 <h1>Disponibilidad de recursos</h1>
                 <h2 className="subtitle">{titulosPorTipo[tipo] || 'Recursos'}</h2>
+                <div className="header-accent-line"></div>
             </div>
 
             <div className="recursos-grid-disponibilidad">
@@ -194,12 +195,12 @@ const DisponibilidadPage = () => {
                         <div className="recurso-card-header">
                             <h3>{recurso.nombre}</h3>
                             <span className={`estado-badge-small ${recurso.estado}`}>
-                                {recurso.estado === 'disponible' ? 'Disponible' : 
-                                 recurso.estado === 'ocupado' ? 'Ocupado' : 
-                                 'Mantenimiento'}
+                                {recurso.estado === 'disponible' ? 'Disponible' :
+                                    recurso.estado === 'ocupado' ? 'Ocupado' :
+                                        'Mantenimiento'}
                             </span>
                         </div>
-                        
+
                         <div className="recurso-card-body">
                             <div className="recurso-info-item">
                                 <span className="icon">📍</span>
@@ -209,7 +210,7 @@ const DisponibilidadPage = () => {
                                 <span className="icon">👥</span>
                                 <span>Capacidad: {recurso.capacidad} personas</span>
                             </div>
-                            
+
                             {/* Equipamiento del backend */}
                             {recurso.equipamiento && recurso.equipamiento.length > 0 && (
                                 <div className="recurso-features">
@@ -218,7 +219,7 @@ const DisponibilidadPage = () => {
                                     ))}
                                 </div>
                             )}
-                            
+
                             {/* Horario disponible */}
                             {recurso.horario_inicio && recurso.horario_fin && (
                                 <div className="recurso-info-item">
@@ -227,8 +228,8 @@ const DisponibilidadPage = () => {
                                 </div>
                             )}
                         </div>
-                        
-                        <button 
+
+                        <button
                             className="btn-reservar-grid"
                             onClick={() => handleSeleccionarRecurso(recurso)}
                             disabled={recurso.estado !== 'disponible'}
@@ -257,11 +258,11 @@ const DisponibilidadPage = () => {
                                 <h3>{titulosPorTipo[tipo] || 'Recursos'}</h3>
                                 <h4>{recursoSeleccionado.nombre}</h4>
                                 <p className="recurso-codigo">{recursoSeleccionado.codigo}</p>
-                                
+
                                 <div className="recurso-visual">
                                     {recursoSeleccionado.imagen_url ? (
-                                        <img 
-                                            src={recursoSeleccionado.imagen_url} 
+                                        <img
+                                            src={recursoSeleccionado.imagen_url}
                                             alt={recursoSeleccionado.nombre}
                                             className="recurso-imagen"
                                         />
@@ -278,7 +279,7 @@ const DisponibilidadPage = () => {
                                         )}
                                     </div>
                                 </div>
-                                
+
                                 {/* Descripción del recurso */}
                                 {recursoSeleccionado.descripcion && (
                                     <div className="recurso-descripcion">
@@ -286,7 +287,7 @@ const DisponibilidadPage = () => {
                                         <p>{recursoSeleccionado.descripcion}</p>
                                     </div>
                                 )}
-                                
+
                                 {/* Equipamiento disponible */}
                                 {recursoSeleccionado.equipamiento && recursoSeleccionado.equipamiento.length > 0 && (
                                     <div className="recurso-equipamiento">
@@ -298,7 +299,7 @@ const DisponibilidadPage = () => {
                                         </ul>
                                     </div>
                                 )}
-                                
+
                                 {/* Restricciones del recurso */}
                                 {recursoSeleccionado.restricciones && (
                                     <div className="recurso-restricciones">
@@ -337,26 +338,25 @@ const DisponibilidadPage = () => {
                                                         <span className="icon-disponible">✓</span>
                                                         <span>Horarios disponibles para esta fecha</span>
                                                     </div>
-                                                    
+
                                                     {disponibilidad.horarios_disponibles && disponibilidad.horarios_disponibles.length > 0 && (
                                                         <div className="horarios-disponibles">
-                                            <p className="horarios-label">Haz click para seleccionar:</p>
-                                                {disponibilidad.horarios_disponibles.map((horario, idx) => (
-                                                    <div 
-                                                        key={idx} 
-                                                        className={`horario-slot disponible ${
-                                                            horarioSeleccionado?.inicio === horario.inicio && 
-                                                            horarioSeleccionado?.fin === horario.fin 
-                                                            ? 'seleccionado' : ''
-                                                        }`}
-                                                        onClick={() => handleSeleccionarHorario(horario)}
-                                                    >
-                                                        {horario.inicio} - {horario.fin}
-                                                    </div>
-                                                ))}
-                                        </div>
+                                                            <p className="horarios-label">Haz click para seleccionar:</p>
+                                                            {disponibilidad.horarios_disponibles.map((horario, idx) => (
+                                                                <div
+                                                                    key={idx}
+                                                                    className={`horario-slot disponible ${horarioSeleccionado?.inicio === horario.inicio &&
+                                                                        horarioSeleccionado?.fin === horario.fin
+                                                                        ? 'seleccionado' : ''
+                                                                        }`}
+                                                                    onClick={() => handleSeleccionarHorario(horario)}
+                                                                >
+                                                                    {horario.inicio} - {horario.fin}
+                                                                </div>
+                                                            ))}
+                                                        </div>
                                                     )}
-                                                    
+
                                                     {disponibilidad.horarios_ocupados && disponibilidad.horarios_ocupados.length > 0 && (
                                                         <div className="horarios-ocupados-section">
                                                             <p className="horarios-label">Horarios ocupados:</p>
@@ -429,8 +429,8 @@ const DisponibilidadPage = () => {
                                         <label htmlFor="aceptar-normas">Aceptar normas de uso</label>
                                     </div>
 
-                                    <button 
-                                        type="submit" 
+                                    <button
+                                        type="submit"
                                         className="btn-confirmar-reserva"
                                         disabled={!disponibilidad?.disponible || !esHorarioDisponible(formData.hora_inicio, formData.hora_fin)}
                                     >
